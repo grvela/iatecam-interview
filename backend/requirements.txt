@@ -1,0 +1,8 @@
+fastapi[all]
+uvicorn[standard]
+SQLAlchemy
+psycopg2
+alembic
+python-dotenv
+pytest
+websockets
