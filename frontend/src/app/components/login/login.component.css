@@ -1,0 +1,33 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.login-container form {
+    text-align: center;
+    border: 1px solid grey;
+    padding: 2em;
+    border-radius: 10px;
+}
+
+.login-container>form>div {
+    margin-bottom: 1em;
+}
+
+.login-container p {
+    text-align: center;
+}
+
+.p-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1em;
+}
+
+.p-field>label {
+    justify-content: flex-start;
+}
