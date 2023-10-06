@@ -10,6 +10,8 @@ class Storage(Base):
     price = Column(Float, nullable=False)
     description = Column(String, nullable=False)
     amount = Column(Integer, nullable=False)
-    product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
+    product_id = Column(Integer, ForeignKey('products.id'), nullable=False, index=True)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False, index=True)
 
     product = relationship("Product", back_populates="storage")
+    user = relationship("User", back_populates="inputs")

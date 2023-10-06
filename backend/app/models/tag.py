@@ -6,4 +6,4 @@ class Tag(Base):
     __tablename__ = "tags"
 
     id=Column(Integer, primary_key=True, index=True)
-    name=Column(String, nullable=False, unique=True)
+    name=Column(String, nullable=False, unique=True, index=True)

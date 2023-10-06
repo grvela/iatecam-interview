@@ -9,4 +9,3 @@ class User(Base):
     name=Column(String)
     username= Column(String, unique=True)
     password = Column(String)
-    role= Column(Enum("supplier", "client"), nullable=False, default="client")

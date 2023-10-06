@@ -8,6 +8,8 @@ class Output(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     amount = Column(Integer, nullable=False)
-    storage_id = Column(Integer, ForeignKey('storage.id'), nullable=False)
+    storage_id = Column(Integer, ForeignKey('storage.id'), nullable=False, index=True)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False, index=True)
 
     storage = relationship("Storage", back_populates="outputs")
+    user = relationship("User", back_populates="inputs")
