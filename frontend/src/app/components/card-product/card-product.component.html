@@ -1,0 +1,15 @@
+<div class="product-card">
+    <p-card>
+        <ng-template pTemplate="title">
+            Product Details
+        </ng-template>
+        <ng-template pTemplate="content">
+            <div class="product-info">
+                <p>Product Name: {{ product.name }}</p>
+                <p>Price: ${{ product.price }}</p>
+                <p>Category: {{ product.category }}</p>
+                <p>Amount in Stock: {{ product.amount }}</p>
+            </div>
+        </ng-template>
+    </p-card>
+</div>

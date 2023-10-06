@@ -1,0 +1,19 @@
+<p-card>
+    <ng-template pTemplate="title">
+        Product Details
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="product-info">
+            <p>Product Name: {{ product.name }}</p>
+            <p>Price: ${{ product.price }}</p>
+            <p>Category: {{ product.category }}</p>
+            <p>Amount in Stock: {{ product.amount }}</p>
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">Quantity</span>
+                <input type="number" [(ngModel)]="quantity" pInputNumber [min]="1" [max]="product.amount" />
+            </div>
+            <button pButton type="button" label="Buy" (click)="buyProduct()"
+                [disabled]="quantity <= 0 || quantity > product.amount"></button>
+        </div>
+    </ng-template>
+</p-card>

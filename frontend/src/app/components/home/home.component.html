@@ -1,3 +1,23 @@
 <div>
     <app-tag></app-tag>
+    <app-product></app-product>
+    <div class="product-list">
+        <h3>Created by me</h3>
+        <div class="p-grid">
+            <ng-container *ngFor="let product of products">
+                <div class="p-col-12 p-md-4">
+                    <app-card-product [product]="product"></app-card-product>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+
+    <div class="product-list">
+        <h3>To buy</h3>
+        <div class="p-grid">
+            <div class="p-col-12 p-md-4" *ngFor="let product of products">
+                <app-card-product-buy [product]="product"></app-card-product-buy>
+            </div>
+        </div>
+    </div>
 </div>
