@@ -1,14 +1,19 @@
 from pydantic import BaseModel
 
 class UserBase(BaseModel):
+    name: str
     username: str
+    role: str = "client"
 
-class UserCreate(UserBase):
+class CreateUser(UserBase):
     password: str
-    role: str
+
+
+class UpdateUser(CreateUser):
+    pass
 
 class User(UserBase):
     id: int
 
     class Config:
-        orm_mode = True
+        orm_mode = True        

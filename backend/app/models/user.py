@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Enum
 
 from app.config.database import Base
 
@@ -9,4 +9,4 @@ class User(Base):
     name=Column(String)
     username= Column(String, unique=True)
     password = Column(String)
-    role= Column(String)
+    role= Column(Enum("supplier", "client"), nullable=False, default="client")
