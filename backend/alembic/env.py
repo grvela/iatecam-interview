@@ -69,7 +69,7 @@ def run_migrations_online() -> None:
 
     """
 
-    from app.database.models import user, input, output, storage, product, tag
+    from app.models import user, input, output, storage, product, tag
 
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
