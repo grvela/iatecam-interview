@@ -8,6 +8,7 @@ import { TagComponent } from './tag/tag.component';
 import { ProductComponent } from './product/product.component';
 import { CardProductComponent } from './card-product/card-product.component';
 import { CardProductBuyComponent } from './card-product-buy/card-product-buy.component';
+import { SalesHistoryComponent } from './sales-history/sales-history.component';
 
 import { AppRoutingModule } from '../app-routing.module';
 
@@ -28,7 +29,8 @@ import { CardModule } from 'primeng/card';
         TagComponent,
         ProductComponent,
         CardProductComponent,
-        CardProductBuyComponent
+        CardProductBuyComponent,
+        SalesHistoryComponent
     ],
     imports: [
         CommonModule,
