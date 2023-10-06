@@ -24,3 +24,6 @@ class TagRepository(AbstractRepository[TagModel]):
     
     def get_all_tags(self) -> List[Tag]:
         return self._get_all()
+    
+    def get_by_name(self, tag_name: str) -> Tag:
+        return self._search_one_with(field_name="name", value=tag_name)

@@ -16,7 +16,7 @@ class AbstractRepository(Generic[ModelType], ABC):
 
     def _get(self, id: int) -> ModelType:
         return self.db.query(self.model).filter(self.model.id == id).first()
-
+    
     def _update(self, entity: ModelType) -> ModelType:
         self.db.commit()
         self.db.refresh(entity)
@@ -30,3 +30,9 @@ class AbstractRepository(Generic[ModelType], ABC):
 
     def _get_all(self) -> List[ModelType]:
         return self.db.query(self.model).all()
+    
+    def _search_all_with(self, field_name: str, value: str) -> List[ModelType]:
+        return self.db.query(self.model).filter(getattr(self.model, field_name) == value).all()
+    
+    def _search_one_with(self, field_name: str, value: str) -> List[ModelType]:
+        return self.db.query(self.model).filter(getattr(self.model, field_name) == value).first()

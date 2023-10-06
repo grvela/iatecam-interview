@@ -6,6 +6,9 @@ class TagBase(BaseModel):
 class CreateTag(TagBase):
     pass
 
+class UpdateTag(TagBase):
+    pass
+
 class Tag(TagBase):
     id: int
 
