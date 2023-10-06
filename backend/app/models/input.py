@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 
-from app.database.config import Base
+from app.config.database import Base
 
 class Input(Base):
     __tablename__ = 'inputs'

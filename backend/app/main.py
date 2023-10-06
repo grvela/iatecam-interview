@@ -1,12 +1,8 @@
 from typing import Union
 
 from fastapi import FastAPI
+from app.routers import tag
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-
+app.include_router(tag.router)

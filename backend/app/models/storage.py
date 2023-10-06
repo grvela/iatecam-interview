@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, Integer, ForeignKey, Float
 from sqlalchemy.orm import relationship
 
-from app.database.config import Base
+from app.config.database import Base
 
 class Storage(Base):
     __tablename__ = 'storage'
