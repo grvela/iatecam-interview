@@ -1,4 +1,4 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, Response
 
 from app.config.session import AppService
 
@@ -35,7 +35,18 @@ class TagService(AppService):
 
         db_tag.name = tag.name
         return TagRepository(self.db).update_tag(db_tag)
-
     
+    def delete_tag(self, item_id: int):
+        db_tag = self.get_tag(item_id)
+
+        TagRepository(self.db).delete_tag(db_tag.id)
+
+        existing_tag = TagRepository(self.db).get_tag(tag_id=item_id)
+
+        if existing_tag:
+            raise HTTPException(status_code= 400, detail="Can't delete tag")
+        
+        return Response(status_code=204)
+              
     def get_all_tags(self) -> List[Tag]:
         return TagRepository(self.db).get_all_tags()

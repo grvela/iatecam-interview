@@ -12,7 +12,7 @@ class TagRepository(AbstractRepository[TagModel]):
         super().__init__(db)
         self.model = TagModel
 
-    def create_tag(self, tag: CreateTag):
+    def create_tag(self, tag: CreateTag) -> Tag:
         tag_obj = TagModel(name=tag.name)
         return self._create(tag_obj)
 
@@ -21,6 +21,9 @@ class TagRepository(AbstractRepository[TagModel]):
     
     def update_tag(self, tag: Tag) -> Tag:
         return self._update(tag)
+    
+    def delete_tag(self, tag_id: int):
+        return self._delete(tag_id)
     
     def get_all_tags(self) -> List[Tag]:
         return self._get_all()

@@ -23,7 +23,7 @@ class AbstractRepository(Generic[ModelType], ABC):
         return entity
 
     def _delete(self, id: int) -> None:
-        entity = self.get(id)
+        entity = self._get(id)
         if entity:
             self.db.delete(entity)
             self.db.commit()

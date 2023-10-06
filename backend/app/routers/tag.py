@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
+
+from starlette.responses import Response
 
 from sqlalchemy.orm import Session
 
@@ -24,6 +26,10 @@ def get_tag(tag_id: int, db: Session = Depends(get_db)) -> Tag:
 @router.put("/{item_id}")
 def update_tag(item_id: int, tag: UpdateTag, db: Session = Depends(get_db)) -> Tag:
     return TagService(db).update_tag(item_id, tag)
+
+@router.delete("/{item_id}")
+def delete_tag(item_id: int, db: Session = Depends(get_db)):
+    return TagService(db).delete_tag(item_id)
 
 @router.get("/")
 def get_all_tags(db: Session = Depends(get_db)) -> List[Tag]:
