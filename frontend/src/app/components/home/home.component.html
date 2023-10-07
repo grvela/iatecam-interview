@@ -1,8 +1,23 @@
-<div>
-    <app-tag></app-tag>
-    <app-product></app-product>
+<div class="home-container">
+    <h1>E-commerce</h1>
+    <p>
+        Welcome to the best e-commerce
+    </p>
+
+    <h2>Sell Area</h2>
+
+    <div class="create-tag">
+        <h3>Create a new tag</h3>
+        <app-tag></app-tag>
+    </div>
+
+    <div class="create-product">
+        <h3>Create a new Product</h3>
+        <app-product></app-product>
+    </div>
+
+    <h2>Created by me</h2>
     <div class="product-list">
-        <h3>Created by me</h3>
         <div class="p-grid">
             <ng-container *ngFor="let product of products">
                 <div class="p-col-12 p-md-4">
@@ -12,8 +27,8 @@
         </div>
     </div>
 
+    <h2>To buy</h2>
     <div class="product-list">
-        <h3>To buy</h3>
         <div class="p-grid">
             <div class="p-col-12 p-md-4" *ngFor="let product of products">
                 <app-card-product-buy [product]="product"></app-card-product-buy>
