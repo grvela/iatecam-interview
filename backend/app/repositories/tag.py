@@ -1,4 +1,4 @@
-from app.schemas.tag import CreateTag, Tag
+from app.schemas.tag import CreateTag, UpdateTag, Tag
 from app.models.tag import Tag as TagModel
 from app.repositories.main import AbstractRepository
 
@@ -13,20 +13,20 @@ class TagRepository(AbstractRepository[TagModel]):
         self.model = TagModel
 
     def create_tag(self, tag: CreateTag) -> Tag:
-        tag_obj = TagModel(name=tag.name)
-        return self._create(tag_obj)
+        tag = TagModel(name=tag.name)
+        return self._create(tag)
 
-    def get_tag(self, tag_id: int) -> Tag:
+    def get_tag_by_id(self, tag_id: int) -> Tag:
         return self._get(tag_id)
     
-    def update_tag(self, tag: Tag) -> Tag:
+    def update_tag(self, tag: UpdateTag) -> Tag:
         return self._update(tag)
     
-    def delete_tag(self, tag_id: int):
+    def delete_tag_by_id(self, tag_id: int) -> None:
         return self._delete(tag_id)
     
     def get_all_tags(self) -> List[Tag]:
         return self._get_all()
     
-    def get_by_name(self, tag_name: str) -> Tag:
-        return self._search_one_with(field_name="name", value=tag_name)
+    def get_tag_by_name(self, value: str) -> Tag:
+        return self._search_one_with("name", value)

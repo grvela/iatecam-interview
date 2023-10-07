@@ -12,28 +12,14 @@ class InputRepository(AbstractRepository[InputModel]):
         super().__init__(db)
         self.model = InputModel
     
-    def create_input(self, input_data: CreateInput) -> Input:
-        input_obj = InputModel(
-            storage_id=input_data.storage_id,
-            client_id=input_data.client_id,
-            amount=input_data.amount
-        )
-        return self._create(input_obj)
+    def create_input(self, input: CreateInput) -> Input:
+        return self._create(input)
     
-    def get_input(self, input_id: int) -> Input:
+    def get_input_by_id(self, input_id: int) -> Input:
         return self._get(input_id)
     
-    def update_input(self, input_data: CreateInput) -> Input:
-        return self._update(input_data)
-    
-    def delete_input(self, input_id: int) -> None:
+    def delete_input_by_id(self, input_id: int) -> None:
         self._delete(input_id)
     
     def get_all_inputs(self) -> List[Input]:
         return self._get_all()
-    
-    def search_inputs_by_field(self, field_name: str, value: str) -> List[Input]:
-        return self._search_all_with(field_name, value)
-    
-    def search_input_by_field(self, field_name: str, value: str) -> Input:
-        return self._search_one_with(field_name, value)
