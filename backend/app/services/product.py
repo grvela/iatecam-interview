@@ -9,15 +9,15 @@ from app.config.session import AppService
 
 class ProductService(AppService):
     def create_product(self, product_data: CreateProduct) -> Product:
-        
-        db_tag = TagService(self.db).create_tag(product_data.tag_name)
+       db_tag = TagService(self.db).create_tag(product_data.tag_name)
+       db_product = ProductRepository(self.db).search_product_by_field(field_name="name", value=product_data.name)
 
-        db_product = ProductRepository(self.db).search_product_by_field('name', product_data.name)
+       if db_product:
+           if db_product.tag_id == db_tag.id:
+               return db_product
         
-        if db_product:
-            product_data
-
-        return ProductRepository(self.db).create_product(product_data)
+       product_data.tag_id = db_tag.id
+       return ProductRepository(self.db).create_product(product_data)
 
     def get_product(self, product_id: int) -> Product:
         db_product = ProductRepository(self.db).get_product_by_id(product_id)

@@ -30,5 +30,5 @@ class ProductRepository(AbstractRepository[ProductModel]):
     def search_products_by_field(self, field_name, value):
         return self._search_all_with(field_name, value)
 
-    def search_product_by_field(self, field_name, value):
+    def search_product_by_field(self, field_name, value) -> Product:
         return self._search_one_with(field_name, value)
