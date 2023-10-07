@@ -7,8 +7,6 @@ class Product(Base):
     __tablename__ = "products"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False, index=True)
-    tag_id = Column(Integer, ForeignKey('tags.id'), nullable=False)
+    name = Column(String, nullable=False, unique=True, index=True)
 
-    tag = relationship("Tag", back_populates="products")
     storages = relationship("Storage", back_populates="product")

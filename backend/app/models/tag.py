@@ -9,4 +9,4 @@ class Tag(Base):
     id=Column(Integer, primary_key=True, index=True)
     name=Column(String, nullable=False, unique=True, index=True)
 
-    products = relationship('Product', back_populates='tag')
+    storages = relationship('Storage', back_populates='tag')
