@@ -11,3 +11,4 @@ class Product(Base):
     tag_id = Column(Integer, ForeignKey('tags.id'), nullable=False)
 
     tag = relationship("Tag", back_populates="products")
+    storages = relationship("Storage", back_populates="product")

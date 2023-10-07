@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, Enum
+from sqlalchemy.orm import relationship
 
 from app.config.database import Base
 
@@ -9,3 +10,7 @@ class User(Base):
     name=Column(String)
     username= Column(String, unique=True)
     password = Column(String)
+
+    storages = relationship('Storage', back_populates='user')
+    inputs = relationship('Input', back_populates='user')
+    outputs = relationship('Output', back_populates='user')

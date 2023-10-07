@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 501580c20f4c
+Revision ID: 10a071f5f0d8
 Revises: 
-Create Date: 2023-10-06 23:57:19.454541
+Create Date: 2023-10-07 18:45:06.960844
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '501580c20f4c'
+revision: str = '10a071f5f0d8'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -45,7 +45,7 @@ def upgrade() -> None:
     )
     op.create_index(op.f('ix_products_id'), 'products', ['id'], unique=False)
     op.create_index(op.f('ix_products_name'), 'products', ['name'], unique=False)
-    op.create_table('storage',
+    op.create_table('storages',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('price', sa.Float(), nullable=False),
     sa.Column('description', sa.String(), nullable=False),
@@ -56,15 +56,15 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_storage_id'), 'storage', ['id'], unique=False)
-    op.create_index(op.f('ix_storage_product_id'), 'storage', ['product_id'], unique=False)
-    op.create_index(op.f('ix_storage_user_id'), 'storage', ['user_id'], unique=False)
+    op.create_index(op.f('ix_storages_id'), 'storages', ['id'], unique=False)
+    op.create_index(op.f('ix_storages_product_id'), 'storages', ['product_id'], unique=False)
+    op.create_index(op.f('ix_storages_user_id'), 'storages', ['user_id'], unique=False)
     op.create_table('inputs',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('amount', sa.Integer(), nullable=False),
     sa.Column('storage_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['storage_id'], ['storage.id'], ),
+    sa.ForeignKeyConstraint(['storage_id'], ['storages.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -76,7 +76,7 @@ def upgrade() -> None:
     sa.Column('amount', sa.Integer(), nullable=False),
     sa.Column('storage_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['storage_id'], ['storage.id'], ),
+    sa.ForeignKeyConstraint(['storage_id'], ['storages.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -96,10 +96,10 @@ def downgrade() -> None:
     op.drop_index(op.f('ix_inputs_storage_id'), table_name='inputs')
     op.drop_index(op.f('ix_inputs_id'), table_name='inputs')
     op.drop_table('inputs')
-    op.drop_index(op.f('ix_storage_user_id'), table_name='storage')
-    op.drop_index(op.f('ix_storage_product_id'), table_name='storage')
-    op.drop_index(op.f('ix_storage_id'), table_name='storage')
-    op.drop_table('storage')
+    op.drop_index(op.f('ix_storages_user_id'), table_name='storages')
+    op.drop_index(op.f('ix_storages_product_id'), table_name='storages')
+    op.drop_index(op.f('ix_storages_id'), table_name='storages')
+    op.drop_table('storages')
     op.drop_index(op.f('ix_products_name'), table_name='products')
     op.drop_index(op.f('ix_products_id'), table_name='products')
     op.drop_table('products')

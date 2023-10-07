@@ -1,7 +1,7 @@
 from typing import Union
 
 from fastapi import FastAPI
-from app.routers import tag, user, auth, input, output, product, storage
+from app.routers import tag, user, auth, output, product, storage, input
 
 app = FastAPI()
 

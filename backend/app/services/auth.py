@@ -1,6 +1,7 @@
 from app.config.session import AppService
 
 from fastapi import HTTPException
+from fastapi.responses import JSONResponse
 
 from app.services.user import UserService
 
@@ -31,7 +32,6 @@ class AuthService(AppService):
 
         access_token = jwt_manager.create_token(data)
 
-        #TODO - Acho que consigo retornar com Response ou JSON Response
-        return { "access_token": access_token}
+        return JSONResponse(content=access_token)
 
         
