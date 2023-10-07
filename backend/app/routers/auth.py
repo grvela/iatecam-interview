@@ -22,4 +22,4 @@ def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: Sessio
 
 @router.post("/register")
 def register(user: RegisterUser, db: Session = Depends(get_db)):
-    pass
+    return AuthService(db).register_user(user)

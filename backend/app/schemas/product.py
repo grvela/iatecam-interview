@@ -5,7 +5,7 @@ class ProductBase(BaseModel):
     tag_id: int
 
 class CreateProduct(ProductBase):
-    pass
+    tag_name: str
 
 class UpdateProduct(ProductBase):
     pass

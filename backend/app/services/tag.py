@@ -50,3 +50,6 @@ class TagService(AppService):
               
     def get_all_tags(self) -> List[Tag]:
         return TagRepository(self.db).get_all_tags()
+    
+    def get_tag_by_name(self, name: str) -> Tag:
+        return TagRepository(self.db).get_by_name(name)

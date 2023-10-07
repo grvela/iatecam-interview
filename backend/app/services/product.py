@@ -4,14 +4,18 @@ from app.repositories.product import ProductRepository
 from sqlalchemy.orm import Session
 from typing import List
 
+from app.services.tag import TagService
 from app.config.session import AppService
 
 class ProductService(AppService):
     def create_product(self, product_data: CreateProduct) -> Product:
+        
+        db_tag = TagService(self.db).create_tag(product_data.tag_name)
+
         db_product = ProductRepository(self.db).search_product_by_field('name', product_data.name)
         
         if db_product:
-            raise HTTPException(status_code=409, detail="Product already exists")
+            product_data
 
         return ProductRepository(self.db).create_product(product_data)
 
