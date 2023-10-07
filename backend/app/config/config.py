@@ -4,6 +4,10 @@ from functools import lru_cache
 class Settings(BaseSettings):    
     APP_PORT: int
 
+    SECRET_KEY: str
+    ALGORITHM: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int
+
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     POSTGRES_HOST: str

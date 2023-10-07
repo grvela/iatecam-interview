@@ -13,8 +13,7 @@ class UserRepository(AbstractRepository[UserModel]):
         user = UserModel(
             name=user_data.name,
             username=user_data.username,
-            password=user_data.password,
-            role=user_data.role,
+            password=user_data.password
         )
         return self._create(user)
 

@@ -2,6 +2,7 @@ from fastapi import HTTPException, Response
 from app.config.session import AppService
 from app.schemas.user import User, CreateUser, UpdateUser
 from app.repositories.user import UserRepository
+from app.utils.hash import Hash
 from typing import List
 
 class UserService(AppService):
@@ -11,6 +12,8 @@ class UserService(AppService):
         if db_user:
             raise HTTPException(status_code=409, detail="Username already exists")
 
+        user_data.password = Hash.hash(user_data.password)
+        
         return UserRepository(self.db).create_user(user_data)
 
     def get_user(self, user_id: int) -> User:
@@ -46,3 +49,11 @@ class UserService(AppService):
 
     def get_all_users(self) -> List[User]:
         return UserRepository(self.db).get_all_users()
+    
+    def get_user_by_field(self, field_name: str, value: str) -> User:
+        user = UserRepository(self.db).search_user_by_field(field_name, value)
+
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        
+        return user
