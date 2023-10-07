@@ -2,10 +2,9 @@ from pydantic import BaseModel
 
 class ProductBase(BaseModel):
     name: str
-    tag_id: int
 
 class CreateProduct(ProductBase):
-    tag_name: str
+    pass
 
 class UpdateProduct(ProductBase):
     pass

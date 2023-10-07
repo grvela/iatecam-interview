@@ -1,14 +1,13 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, conint
+from datetime import datetime
 
 class InputBase(BaseModel):
-    amount: int
+    amount: conint(gt=0)
+    created_at: datetime
     storage_id: int
     user_id: int
 
 class CreateInput(InputBase):
-    pass
-
-class UpdateInput(InputBase):
     pass
 
 class Input(InputBase):
