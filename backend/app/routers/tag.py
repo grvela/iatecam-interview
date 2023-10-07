@@ -12,7 +12,8 @@ from app.services.tag import TagService
 from typing import List
 
 router = APIRouter(
-    prefix="/tag"
+    prefix="/tags",
+    tags=["Tags"]
 )
 
 @router.post("/")

@@ -6,7 +6,8 @@ from app.schemas.user import User, CreateUser, UpdateUser
 from typing import List
 
 router = APIRouter(
-    prefix="/users"
+    prefix="/users",
+    tags=["Users"]
 )
 
 @router.post("/", response_model=User)

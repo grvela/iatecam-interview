@@ -11,7 +11,8 @@ from app.services.auth import AuthService
 from fastapi.security import OAuth2PasswordRequestForm
 
 router = APIRouter(
-    prefix="/auth"
+    prefix="/auth",
+    tags=["Auth"]
 )
 
 @router.post("/login")
