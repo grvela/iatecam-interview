@@ -6,39 +6,39 @@ from app.utils.hash import Hash
 from typing import List
 
 class UserService(AppService):
-    def create_user(self, user_data: CreateUser) -> User:
-        db_user = UserRepository(self.db).search_user_by_field('username', user_data.username)
-        
-        if db_user:
+    def create_user(self, user: CreateUser) -> User:
+        user_data = UserRepository(self.db).get_user_by_username(user.username)
+
+        if user_data:
             raise HTTPException(status_code=409, detail="Username already exists")
 
-        user_data.password = Hash.hash(user_data.password)
+        user.password = Hash.hash(user.password)
         
-        return UserRepository(self.db).create_user(user_data)
+        return UserRepository(self.db).create_user(user)
 
-    def get_user(self, user_id: int) -> User:
-        db_user = UserRepository(self.db).get_user_by_id(user_id)
+    def get_user_by_id(self, user_id: int) -> User:
+        user_data = UserRepository(self.db).get_user_by_id(user_id)
         
-        if not db_user:
+        if not user_data:
             raise HTTPException(status_code=404, detail="User not found")
 
-        return db_user
+        return user_data
 
-    def update_user(self, user_id: int, user_data: UpdateUser) -> User:
-        db_user = self.get_user(user_id)
+    def update_user_by_id(self, user_id: int, user: UpdateUser) -> User:
+        user_data = self.get_user_by_id(user_id)
         
-        if user_data.username != db_user.username:
-            existing_user = UserRepository(self.db).search_user_by_field('username', user_data.username)
+        if user_data.username != user.username:
+            existing_user = UserRepository(self.db).get_user_by_username(user.username)
             
             if existing_user:
                 raise HTTPException(status_code=409, detail="Username already exists")
 
-        return UserRepository(self.db).update_user(user_data)
+        return UserRepository(self.db).update_user(user)
 
-    def delete_user(self, user_id: int):
-        db_user = self.get_user(user_id)
+    def delete_user_by_id(self, user_id: int) -> User:
+        user_data = self.get_user_by_id(user_id)
         
-        UserRepository(self.db).delete_user(db_user.id)
+        UserRepository(self.db).delete_user(user_data.id)
         
         existing_user = UserRepository(self.db).get_user_by_id(user_id)
         
@@ -49,11 +49,3 @@ class UserService(AppService):
 
     def get_all_users(self) -> List[User]:
         return UserRepository(self.db).get_all_users()
-    
-    def get_user_by_field(self, field_name: str, value: str) -> User:
-        user = UserRepository(self.db).search_user_by_field(field_name, value)
-
-        if not user:
-            raise HTTPException(status_code=404, detail="User not found")
-        
-        return user

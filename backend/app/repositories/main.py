@@ -1,13 +1,15 @@
 from abc import ABC
 from sqlalchemy.orm import Session
 from typing import TypeVar, Generic, List
+from sqlalchemy.ext.declarative import DeclarativeMeta
+
 
 ModelType = TypeVar("ModelType")
 
-class AbstractRepository(Generic[ModelType], ABC):
+class AbstractRepository(Generic[ModelType], ABC):    
     def __init__(self, db: Session):
         self.db = db
-    
+
     def _create(self, entity: ModelType) -> ModelType:
         self.db.add(entity)
         self.db.commit()

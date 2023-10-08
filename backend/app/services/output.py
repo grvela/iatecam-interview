@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from app.schemas.output import Output, CreateOutput, UpdateOutput
+from app.schemas.output import Output, CreateOutput
 from app.repositories.output import OutputRepository
 from sqlalchemy.orm import Session
 from typing import List
@@ -22,11 +22,6 @@ class OutputService(AppService):
             raise HTTPException(status_code=404, detail="Output not found")
 
         return db_output
-
-    def update_output(self, output_id: int, output_data: UpdateOutput) -> Output:
-        db_output = self.get_output(output_id)
-        
-        return OutputRepository(self.db).update_output(output_id, output_data)
 
     def delete_output(self, output_id: int):
         db_output = self.get_output(output_id)

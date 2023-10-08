@@ -1,6 +1,7 @@
 from app.schemas.tag import CreateTag, UpdateTag, Tag
 from app.models.tag import Tag as TagModel
 from app.repositories.main import AbstractRepository
+from sqlalchemy.ext.declarative import DeclarativeMeta
 
 from sqlalchemy.orm import Session
 
@@ -13,8 +14,8 @@ class TagRepository(AbstractRepository[TagModel]):
         self.model = TagModel
 
     def create_tag(self, tag: CreateTag) -> Tag:
-        tag = TagModel(name=tag.name)
-        return self._create(tag)
+        entity = TagModel(name=tag.name)
+        return self._create(entity)
 
     def get_tag_by_id(self, tag_id: int) -> Tag:
         return self._get(tag_id)

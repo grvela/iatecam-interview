@@ -11,7 +11,8 @@ class ProductRepository(AbstractRepository[ProductModel]):
         self.model = ProductModel
 
     def create_product(self, product: CreateProduct) -> Product:
-        return self._create(product)
+        entity = ProductModel(name=product.name)
+        return self._create(entity)
 
     def get_product_by_id(self, product_id: int) -> Product:
         return self._get(product_id)

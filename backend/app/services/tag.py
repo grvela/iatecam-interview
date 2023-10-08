@@ -10,38 +10,39 @@ from typing import List
 
 class TagService(AppService):
     def create_tag(self, tag: CreateTag) -> Tag:
-        db_tag = TagRepository(self.db).get_by_name(tag_name=tag.name)
+        tag_data = TagRepository(self.db).get_tag_by_name(tag.name)
 
-        if db_tag:
-            return db_tag
+        if tag_data:
+            return tag_data
 
         return TagRepository(self.db).create_tag(tag)
     
-    def get_tag(self, tag_id: int) -> Tag:
-        db_tag = TagRepository(self.db).get_tag(tag_id=tag_id)
+    def get_tag_by_id(self, tag_id: int) -> Tag:
+        tag_data = TagRepository(self.db).get_tag_by_id(tag_id)
 
-        if not db_tag:
+        if not tag_data:
             raise HTTPException(status_code=404, detail="Tag not found")
 
-        return db_tag
+        return tag_data
 
-    def update_tag(self, item_id: int, tag: UpdateTag) -> Tag:
-        db_tag = self.get_tag(item_id)
+    def update_tag_by_id(self, tag_id: int, tag: UpdateTag) -> Tag:
+        tag_data = self.get_tag_by_id(tag_id)
 
-        existing_tag = TagRepository(self.db).get_by_name(tag_name=tag.name)
+        existing_tag = TagRepository(self.db).get_tag_by_name(tag.name)
         
         if existing_tag:
             raise HTTPException(status_code=409, detail="Tag is already exists")
 
-        db_tag.name = tag.name
-        return TagRepository(self.db).update_tag(db_tag)
+        tag_data.name = tag.name
+
+        return TagRepository(self.db).update_tag(tag_data)
     
-    def delete_tag(self, item_id: int):
-        db_tag = self.get_tag(item_id)
+    def delete_tag_by_id(self, tag_id: int):
+        tag_data = self.get_tag_by_id(tag_id)
 
-        TagRepository(self.db).delete_tag(db_tag.id)
+        TagRepository(self.db).delete_tag_by_id(tag_data.id)
 
-        existing_tag = TagRepository(self.db).get_tag(tag_id=item_id)
+        existing_tag = TagRepository(self.db).get_tag_by_id(tag_data.id)
 
         if existing_tag:
             raise HTTPException(status_code= 400, detail="Can't delete tag")
@@ -50,6 +51,3 @@ class TagService(AppService):
               
     def get_all_tags(self) -> List[Tag]:
         return TagRepository(self.db).get_all_tags()
-    
-    def get_tag_by_name(self, name: str) -> Tag:
-        return TagRepository(self.db).get_by_name(name)

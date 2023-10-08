@@ -22,15 +22,15 @@ def create_tag(tag: CreateTag, db: Session = Depends(get_db)) -> Tag:
 
 @router.get("/{item_id}")
 def get_tag(tag_id: int, db: Session = Depends(get_db)) -> Tag:
-    return TagService(db).get_tag(tag_id)
+    return TagService(db).get_tag_by_id(tag_id)
 
 @router.put("/{item_id}")
 def update_tag(item_id: int, tag: UpdateTag, db: Session = Depends(get_db)) -> Tag:
-    return TagService(db).update_tag(item_id, tag)
+    return TagService(db).update_tag_by_id(item_id, tag)
 
 @router.delete("/{item_id}")
 def delete_tag(item_id: int, db: Session = Depends(get_db)):
-    return TagService(db).delete_tag(item_id)
+    return TagService(db).delete_tag_by_id(item_id)
 
 @router.get("/")
 def get_all_tags(db: Session = Depends(get_db)) -> List[Tag]:

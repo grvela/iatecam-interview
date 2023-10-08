@@ -1,17 +1,34 @@
 from fastapi import HTTPException
-from app.schemas.storage import Storage, CreateStorage, UpdateStorage
+
+from app.schemas.storage import Storage, CreateStorage, UpdateStorage, StorageBase
+from app.schemas.product import CreateProduct
+from app.schemas.tag import CreateTag
+
 from app.repositories.storage import StorageRepository
 from sqlalchemy.orm import Session
 from typing import List
 
+from app.services.product import ProductService
+from app.services.tag import TagService
+
 from app.config.session import AppService
 
 class StorageService(AppService):
-    def create_storage(self, storage_data: CreateStorage) -> Storage:
-        db_storage = StorageRepository(self.db).search_storage_by_field('product_id', storage_data.product_id)
-        
-        if db_storage:
-            raise HTTPException(status_code=409, detail="Storage already exists")
+    def create_storage(self, storage: CreateStorage) -> Storage:
+        product = CreateProduct(name=storage.product_name)
+        tag = CreateTag(name=storage.tag_name)
+
+        product_data = ProductService(self.db).create_product(product)
+        tag_data = TagService(self.db).create_tag(tag)
+
+        storage_data = StorageBase(
+            user_id=1,
+            product_id=product_data.id,
+            tag_id=tag_data.id,
+            price=storage.price,
+            description=storage.description,
+            amount=storage.amount
+        )
 
         return StorageRepository(self.db).create_storage(storage_data)
 
@@ -23,10 +40,10 @@ class StorageService(AppService):
 
         return db_storage
 
-    def update_storage(self, storage_id: int, storage_data: UpdateStorage) -> Storage:
+    def update_storage(self, storage_id: int, storage: UpdateStorage) -> Storage:
         db_storage = self.get_storage(storage_id)
         
-        return StorageRepository(self.db).update_storage(storage_id, storage_data)
+        return StorageRepository(self.db).update_storage(storage_id, storage)
 
     def delete_storage(self, storage_id: int):
         db_storage = self.get_storage(storage_id)

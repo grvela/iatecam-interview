@@ -5,15 +5,13 @@ from typing import List
 
 from app.config.session import AppService
 
+from app.services.storage import StorageService
+from app.schemas.storage import CreateStorage
+
 class InputService(AppService):    
     def create_input(self, input_data: CreateInput) -> Input:
-        db_input = InputRepository(self.db).search_input_by_field('storage_id', input_data.storage_id)
-        
-        if db_input:
-            raise HTTPException(status_code=409, detail="Input already exists")
-
-        return InputRepository(self.db).create_input(input_data)
-
+        pass
+    
     def get_input(self, input_id: int) -> Input:
         db_input = InputRepository(self.db).get_input(input_id)
         
@@ -21,11 +19,6 @@ class InputService(AppService):
             raise HTTPException(status_code=404, detail="Input not found")
 
         return db_input
-
-    def update_input(self, input_id: int, input_data: CreateInput) -> Input:
-        db_input = self.get_input(input_id)
-        
-        return InputRepository(self.db).update_input(db_input, input_data)
 
     def delete_input(self, input_id: int):
         db_input = self.get_input(input_id)
