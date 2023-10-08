@@ -32,3 +32,6 @@ class StorageRepository(AbstractRepository[StorageModel]):
 
     def get_all_storages(self) -> List[Storage]:
         return self._get_all()
+    
+    def get_all_storages_by_user_id(self, user_id: int) -> List[Storage]:
+        return self._search_all_with("user_id", user_id)
