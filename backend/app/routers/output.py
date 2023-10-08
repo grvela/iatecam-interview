@@ -16,7 +16,7 @@ def create_output(output_data: CreateOutput, db: Session = Depends(get_db)):
 
 @router.get("/{output_id}", response_model=Output)
 def get_output(output_id: int, db: Session = Depends(get_db)):
-    return OutputService(db).get_output(output_id)
+    return OutputService(db).get_output_(output_id)
 
 @router.delete("/{output_id}")
 def delete_output(output_id: int, db: Session = Depends(get_db)):

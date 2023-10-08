@@ -16,15 +16,15 @@ def create_user(user: CreateUser, db: Session = Depends(get_db)):
 
 @router.get("/{user_id}", response_model=User)
 def get_user(user_id: int, db: Session = Depends(get_db)):
-    return UserService(db).get_user(user_id)
+    return UserService(db).get_user_by_id(user_id)
 
 @router.put("/{user_id}", response_model=User)
 def update_user(user_id: int, user: UpdateUser, db: Session = Depends(get_db)):
-    return UserService(db).update_user(user_id, user)
+    return UserService(db).update_user_by_id(user_id, user)
 
 @router.delete("/{user_id}")
 def delete_user(user_id: int, db: Session = Depends(get_db)):
-    return UserService(db).delete_user(user_id)
+    return UserService(db).delete_user_by_id(user_id)
 
 @router.get("/", response_model=List[User])
 def get_all_users(db: Session = Depends(get_db)):

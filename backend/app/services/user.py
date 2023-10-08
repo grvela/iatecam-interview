@@ -1,6 +1,7 @@
 from fastapi import HTTPException, Response
 from app.config.session import AppService
 from app.schemas.user import User, CreateUser, UpdateUser
+from app.schemas.auth import UserCredentials
 from app.repositories.user import UserRepository
 from app.utils.hash import Hash
 from typing import List
@@ -49,3 +50,9 @@ class UserService(AppService):
 
     def get_all_users(self) -> List[User]:
         return UserRepository(self.db).get_all_users()
+    
+    def get_user_by_username(self, value: str) -> User:
+        return UserRepository(self.db).get_user_by_username(value)
+    
+    def get_user_credentials(self, username: str) -> UserCredentials:
+        return UserRepository(self.db).get_user_credentials(username)

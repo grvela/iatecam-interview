@@ -16,15 +16,15 @@ def create_storage(storage_data: CreateStorage, db: Session = Depends(get_db)):
 
 @router.get("/{storage_id}", response_model=Storage)
 def get_storage(storage_id: int, db: Session = Depends(get_db)):
-    return StorageService(db).get_storage(storage_id)
+    return StorageService(db).get_storage_by_id(storage_id)
 
 @router.put("/{storage_id}", response_model=Storage)
 def update_storage(storage_id: int, storage_data: UpdateStorage, db: Session = Depends(get_db)):
-    return StorageService(db).update_storage(storage_id, storage_data)
+    return StorageService(db).update_storage_by_id(storage_id, storage_data)
 
 @router.delete("/{storage_id}")
 def delete_storage(storage_id: int, db: Session = Depends(get_db)):
-    return StorageService(db).delete_storage(storage_id)
+    return StorageService(db).delete_storage_by_id(storage_id)
 
 @router.get("/", response_model=List[Storage])
 def read_all_storages(db: Session = Depends(get_db)):

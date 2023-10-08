@@ -10,6 +10,8 @@ class LoginUser(UserBase):
 class RegisterUser(UserBase):
     name: str
 
-class User(UserBase):
+class UserCredentials(RegisterUser):
+    id: int
+
     class Config:
         orm_mode = True        

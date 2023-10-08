@@ -1,4 +1,4 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, Response
 
 from app.schemas.storage import Storage, CreateStorage, UpdateStorage, StorageBase
 from app.schemas.product import CreateProduct
@@ -32,31 +32,32 @@ class StorageService(AppService):
 
         return StorageRepository(self.db).create_storage(storage_data)
 
-    def get_storage(self, storage_id: int) -> Storage:
-        db_storage = StorageRepository(self.db).get_storage_by_id(storage_id)
+    def get_storage_by_id(self, storage_id: int) -> Storage:
+        storage_data = StorageRepository(self.db).get_storage_by_id(storage_id)
         
-        if not db_storage:
+        if not storage_data:
             raise HTTPException(status_code=404, detail="Storage not found")
 
-        return db_storage
+        return storage_data
 
-    def update_storage(self, storage_id: int, storage: UpdateStorage) -> Storage:
-        db_storage = self.get_storage(storage_id)
-        
-        return StorageRepository(self.db).update_storage(storage_id, storage)
+    def update_storage_by_id(self, storage_id: int, storage: UpdateStorage) -> Storage:
+        storage_data = self.get_storage_by_id(storage_id)
 
-    def delete_storage(self, storage_id: int):
-        db_storage = self.get_storage(storage_id)
+        #TODO - create function to update only sent fiels
         
-        StorageRepository(self.db).delete_storage(db_storage.id)
+        return StorageRepository(self.db).update_storage(storage_data)
+
+    def delete_storage_by_id(self, storage_id: int):
+        storage_data = self.get_storage_by_id(storage_id)
+        
+        StorageRepository(self.db).delete_storage_by_id(storage_data.id)
         
         existing_storage = StorageRepository(self.db).get_storage_by_id(storage_id)
         
         if existing_storage:
             raise HTTPException(status_code=400, detail="Can't delete storage")
+        
+        return Response(status_code=204)
 
     def get_all_storages(self) -> List[Storage]:
         return StorageRepository(self.db).get_all_storages()
-    
-    def get_storage_by_field(self, field_name: str, value: str) -> Storage:
-        return StorageRepository(self.db).search_storage_by_field(field_name, value)

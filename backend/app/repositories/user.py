@@ -5,6 +5,7 @@ from app.repositories.main import AbstractRepository
 from typing import List
 
 from app.schemas.user import User, CreateUser, UpdateUser
+from app.schemas.auth import UserCredentials
 
 class UserRepository(AbstractRepository[UserModel]):
     def __init__(self, db: Session):
@@ -33,3 +34,6 @@ class UserRepository(AbstractRepository[UserModel]):
     
     def get_user_by_username(self, value: str) -> User:
         return self._search_one_with("username", value)
+    
+    def get_user_credentials(self, username: str) -> UserCredentials:
+        return self._search_one_with("username", username)

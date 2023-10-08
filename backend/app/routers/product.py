@@ -16,15 +16,15 @@ def create_product(product_data: CreateProduct, db: Session = Depends(get_db)):
 
 @router.get("/{product_id}", response_model=Product)
 def get_product(product_id: int, db: Session = Depends(get_db)):
-    return ProductService(db).get_product(product_id)
+    return ProductService(db).get_product_by_id(product_id)
 
 @router.put("/{product_id}", response_model=Product)
 def update_product(product_id: int, product_data: UpdateProduct, db: Session = Depends(get_db)):
-    return ProductService(db).update_product(product_id, product_data)
+    return ProductService(db).update_product_by_id(product_id, product_data)
 
 @router.delete("/{product_id}")
 def delete_product(product_id: int, db: Session = Depends(get_db)):
-    return ProductService(db).delete_product(product_id)
+    return ProductService(db).delete_product_by_id(product_id)
 
 @router.get("/", response_model=List[Product])
 def read_all_products(db: Session = Depends(get_db)):
