@@ -5,6 +5,7 @@ from typing import List
 from app.services.storage import StorageService
 
 from app.services.sales_by_tag import SalesByTagService
+from app.services.sales_by_product import SalesByProductService
 
 from app.config.session import AppService
 
@@ -18,6 +19,7 @@ class OutputService(AppService):
         storage_data.amount = storage_data.amount - output.amount
 
         SalesByTagService(self.db).add_to_analytics(storage_data.tag_id, output.amount)
+        SalesByProductService(self.db).add_to_analytics(storage_data.product_id, output.amount)
         
         return OutputRepository(self.db).create_output(output)
 

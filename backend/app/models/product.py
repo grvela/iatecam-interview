@@ -10,3 +10,4 @@ class Product(Base):
     name = Column(String, nullable=False, unique=True, index=True)
 
     storages = relationship("Storage", back_populates="product")
+    sales_by_product = relationship("SalesByProduct", back_populates="product")
