@@ -13,7 +13,13 @@ class InputRepository(AbstractRepository[InputModel]):
         self.model = InputModel
     
     def create_input(self, input: CreateInput) -> Input:
-        return self._create(input)
+        entity = InputModel(
+            user_id=input.user_id,
+            storage_id=input.storage_id,
+            amount=input.amount,
+            created_at=input.created_at
+        )
+        return self._create(entity)
     
     def get_input_by_id(self, input_id: int) -> Input:
         return self._get(input_id)

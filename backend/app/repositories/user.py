@@ -12,7 +12,12 @@ class UserRepository(AbstractRepository[UserModel]):
         self.model = UserModel
 
     def create_user(self, user: CreateUser) -> User:
-        return self._create(user)
+        entity = UserModel(
+            name=user.name,
+            username=user.username,
+            password=user.password
+        )
+        return self._create(entity)
 
     def get_user_by_id(self, user_id: int) -> User:
         return self._get(user_id)
