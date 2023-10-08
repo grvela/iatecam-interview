@@ -36,4 +36,8 @@ export class AuthService {
   isLoggedInUser(): boolean {
     return this.isLoggedIn;
   }
+
+  setLoginUser(): void {
+    this.isLoggedIn = true;
+  }
 }
