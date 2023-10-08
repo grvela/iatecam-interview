@@ -29,15 +29,14 @@ class AuthService(AppService):
         if not equal_passwords:
             raise HTTPException(status_code=400, detail="Credentials are not valid")
         
-        jwt_manager = JWTManager()
-
         data = {
             "sub": user_data.username,
             "user_id": user_data.id
         }
 
-        access_token = jwt_manager.create_token(data)
+        access_token = JWTManager().create_token(data)
 
-        return JSONResponse(content=access_token)
+
+        return { "access_token": access_token, "token_type": "bearer" }
 
         

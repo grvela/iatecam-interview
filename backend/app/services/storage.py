@@ -14,15 +14,15 @@ from app.services.tag import TagService
 from app.config.session import AppService
 
 class StorageService(AppService):
-    def create_storage(self, storage: CreateStorage) -> Storage:
+    def create_storage(self, storage: CreateStorage, user_id: int) -> Storage:
         product = CreateProduct(name=storage.product_name)
         tag = CreateTag(name=storage.tag_name)
 
         product_data = ProductService(self.db).create_product(product)
         tag_data = TagService(self.db).create_tag(tag)
-
+        print(user_id)
         storage_data = StorageBase(
-            user_id=1,
+            user_id=user_id,
             product_id=product_data.id,
             tag_id=tag_data.id,
             price=storage.price,

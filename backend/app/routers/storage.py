@@ -5,14 +5,16 @@ from app.services.storage import StorageService
 from app.schemas.storage import Storage, CreateStorage, UpdateStorage
 from typing import List
 
+from app.middlewares.auth import get_current_user
+
 router = APIRouter(
     prefix="/storages",
     tags=["Storage"]
 )
 
 @router.post("/", response_model=Storage)
-def create_storage(storage_data: CreateStorage, db: Session = Depends(get_db)):
-    return StorageService(db).create_storage(storage_data)
+def create_storage(storage_data: CreateStorage, db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
+    return StorageService(db).create_storage(storage_data, current_user["user_id"])
 
 @router.get("/{storage_id}", response_model=Storage)
 def get_storage(storage_id: int, db: Session = Depends(get_db)):
@@ -27,5 +29,5 @@ def delete_storage(storage_id: int, db: Session = Depends(get_db)):
     return StorageService(db).delete_storage_by_id(storage_id)
 
 @router.get("/", response_model=List[Storage])
-def read_all_storages(db: Session = Depends(get_db)):
+def read_all_storages(db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
     return StorageService(db).get_all_storages()
