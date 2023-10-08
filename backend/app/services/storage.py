@@ -64,3 +64,6 @@ class StorageService(AppService):
     
     def get_all_storages_by_user_id(self, user_id: int) -> List[Storage]:
         return StorageRepository(self.db).get_all_storages_by_user_id(user_id)
+    
+    def get_all_storages_to_buy(self, user_id: int) -> List[Storage]:
+        return StorageRepository(self.db).get_all_storages_to_buy(user_id)

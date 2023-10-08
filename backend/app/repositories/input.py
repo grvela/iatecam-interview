@@ -29,3 +29,6 @@ class InputRepository(AbstractRepository[InputModel]):
     
     def get_all_inputs(self) -> List[Input]:
         return self._get_all()
+    
+    def get_all_inputs_by_user_id(self, user_id: int) -> List[Input]:
+        return self._search_all_with("user_id", user_id)

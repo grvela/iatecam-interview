@@ -16,10 +16,13 @@ router = APIRouter(
 def create_storage(storage_data: CreateStorage, db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
     return StorageService(db).create_storage(storage_data, current_user["user_id"])
 
-@router.get("/me", response_model=List[Storage])
+@router.get("/by/me", response_model=List[Storage])
 def get_all_user_storages(db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
-    print(current_user["user_id"])
     return StorageService(db).get_all_storages_by_user_id(current_user["user_id"])
+
+@router.get("/to/me", response_model=List[Storage])
+def get_all_storages_to_buy(db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
+    return StorageService(db).get_all_storages_to_buy(current_user["user_id"])
 
 @router.get("/{storage_id}", response_model=Storage)
 def get_storage(storage_id: int, db: Session = Depends(get_db)):

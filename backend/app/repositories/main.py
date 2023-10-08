@@ -33,6 +33,9 @@ class AbstractRepository(Generic[ModelType], ABC):
     def _get_all(self) -> List[ModelType]:
         return self.db.query(self.model).all()
     
+    def _search_all_without(self, field_name: str, value: str) -> List[ModelType]:
+        return self.db.query(self.model).filter(getattr(self.model, field_name) != value).all()
+
     def _search_all_with(self, field_name: str, value: str) -> List[ModelType]:
         return self.db.query(self.model).filter(getattr(self.model, field_name) == value).all()
     

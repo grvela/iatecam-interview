@@ -5,6 +5,8 @@ from app.services.input import InputService
 from app.schemas.input import Input, CreateInput
 from typing import List
 
+from app.middlewares.auth import get_current_user
+
 router = APIRouter(
     prefix="/inputs",
     tags=["Inputs"]
@@ -13,6 +15,10 @@ router = APIRouter(
 @router.post("/", response_model=Input)
 def create_input(input_data: CreateInput, db: Session = Depends(get_db)):
     return InputService(db).create_input(input_data)
+
+@router.get("/me", response_model=List[Input])
+def get_all_user_inputs(db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
+    return InputService(db).get_all_inputs_by_user_id(current_user["user_id"])
 
 @router.get("/{input_id}", response_model=Input)
 def get_input(input_id: int, db: Session = Depends(get_db)):

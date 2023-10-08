@@ -31,3 +31,6 @@ class InputService(AppService):
 
     def get_all_inputs(self) -> List[Input]:
         return InputRepository(self.db).get_all_inputs()
+    
+    def get_all_inputs_by_user_id(self, user_id: int) -> List[Input]:
+        return InputRepository(self.db).get_all_inputs_by_user_id(user_id)

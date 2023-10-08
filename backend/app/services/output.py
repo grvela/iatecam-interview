@@ -33,3 +33,13 @@ class OutputService(AppService):
 
     def get_all_outputs(self) -> List[Output]:
         return OutputRepository(self.db).get_all_outputs()
+    
+    def get_all_outputs_by_user_id(self, user_id: int) -> List[Output]:
+        return OutputRepository(self.db).get_all_outputs_by_user_id(user_id)
+
+  #TODO  
+    # def get_last_sells(self) -> List[Output]:
+    #     ouput_data = OutputRepository(self.db).get_all_outputs
+
+
+        

@@ -27,3 +27,6 @@ class OutputRepository(AbstractRepository[OutputModel]):
 
     def get_all_outputs(self) -> List[Output]:
         return self._get_all()
+    
+    def get_all_outputs_by_user_id(self, user_id: int) -> List[Output]:
+        return self._search_all_with("user_id", user_id)
