@@ -42,9 +42,7 @@ class StorageService(AppService):
 
     def update_storage_by_id(self, storage_id: int, storage: UpdateStorage) -> Storage:
         storage_data = self.get_storage_by_id(storage_id)
-
-        #TODO - create function to update only sent fiels
-        
+        storage_data = storage
         return StorageRepository(self.db).update_storage(storage_data)
 
     def delete_storage_by_id(self, storage_id: int):

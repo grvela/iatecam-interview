@@ -1,4 +1,5 @@
 from abc import ABC
+from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from typing import TypeVar, Generic, List
 from sqlalchemy.ext.declarative import DeclarativeMeta
@@ -41,3 +42,6 @@ class AbstractRepository(Generic[ModelType], ABC):
     
     def _search_one_with(self, field_name: str, value: str) -> List[ModelType]:
         return self.db.query(self.model).filter(getattr(self.model, field_name) == value).first()
+    
+    def _get_last_n_records(self, field_name: str, n: int):
+        return self.db.query(self.model).order_by(desc(getattr(self.model, field_name))).limit(n).all()

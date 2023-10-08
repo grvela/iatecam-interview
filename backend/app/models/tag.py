@@ -10,3 +10,4 @@ class Tag(Base):
     name=Column(String, nullable=False, unique=True, index=True)
 
     storages = relationship('Storage', back_populates='tag')
+    sales_by_tag = relationship('SalesByTag', back_populates='tag')

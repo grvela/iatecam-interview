@@ -1,14 +1,24 @@
 from fastapi import HTTPException, Response
 from app.schemas.output import Output, CreateOutput
 from app.repositories.output import OutputRepository
-from app.repositories.storage import StorageRepository
-from sqlalchemy.orm import Session
 from typing import List
+from app.services.storage import StorageService
+
+from app.services.sales_by_tag import SalesByTagService
 
 from app.config.session import AppService
 
 class OutputService(AppService):
     def create_output(self, output: CreateOutput) -> Output:
+        storage_data = StorageService(self.db).get_storage_by_id(output.storage_id)
+
+        if storage_data.amount < output.amount:
+            raise HTTPException(status_code=400, detail="No storage for this product")
+        
+        storage_data.amount = storage_data.amount - output.amount
+
+        SalesByTagService(self.db).add_to_analytics(storage_data.tag_id, output.amount)
+        
         return OutputRepository(self.db).create_output(output)
 
     def get_output_by_id(self, output_id: int) -> Output:
@@ -37,9 +47,8 @@ class OutputService(AppService):
     def get_all_outputs_by_user_id(self, user_id: int) -> List[Output]:
         return OutputRepository(self.db).get_all_outputs_by_user_id(user_id)
 
-  #TODO  
-    # def get_last_sells(self) -> List[Output]:
-    #     ouput_data = OutputRepository(self.db).get_all_outputs
+    def get_last_sells(self) -> List[Output]:
+        return OutputRepository(self.db).get_last_outputs()
 
 
         

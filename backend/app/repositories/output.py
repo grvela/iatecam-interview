@@ -30,3 +30,6 @@ class OutputRepository(AbstractRepository[OutputModel]):
     
     def get_all_outputs_by_user_id(self, user_id: int) -> List[Output]:
         return self._search_all_with("user_id", user_id)
+
+    def get_last_outputs(self) -> List[Output]:
+        return self._get_last_n_records("created_at", 4)
