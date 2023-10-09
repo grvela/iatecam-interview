@@ -12,5 +12,4 @@ class User(Base):
     password = Column(String)
 
     storages = relationship('Storage', back_populates='user')
-    inputs = relationship('Input', back_populates='user')
     outputs = relationship('Output', back_populates='user')

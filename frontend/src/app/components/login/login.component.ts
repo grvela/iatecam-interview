@@ -19,8 +19,9 @@ export class LoginComponent {
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
         console.log("Login bem sucedido", response);
-        this.authService.setLoginUser();
-        localStorage.setItem("access_token", response.access_token)
+
+        sessionStorage.setItem("access_token", response.access_token)
+
         this.router.navigate(["/home"])
       },
       error: (error) => {
