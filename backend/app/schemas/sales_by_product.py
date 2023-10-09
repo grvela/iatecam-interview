@@ -1,7 +1,7 @@
 from pydantic import BaseModel
+from app.schemas.product import Product
 
 class SalesByProductBase(BaseModel):
-    product_id: int
     amount: int
 
 class CreateSalesByProduct(SalesByProductBase):
@@ -9,6 +9,7 @@ class CreateSalesByProduct(SalesByProductBase):
 
 class SalesByProduct(SalesByProductBase):
     id: int 
+    product: Product
 
     class Config:
         orm_mode = True

@@ -14,5 +14,5 @@ class Output(Base):
     storage_id = Column(Integer, ForeignKey('storages.id'), nullable=False, index=True)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False, index=True)
 
-    storage = relationship("Storage", back_populates="outputs")
-    user = relationship("User", back_populates="outputs")
+    storage = relationship("Storage", back_populates="outputs", lazy="joined")
+    user = relationship("User", back_populates="outputs", lazy="joined")

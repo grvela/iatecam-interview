@@ -12,4 +12,4 @@ class SalesByProduct(Base):
     product_id = Column(Integer, ForeignKey('products.id'), index=True)
     amount = Column(Integer, nullable=False)
 
-    product = relationship("Product", back_populates="sales_by_product")
+    product = relationship("Product", back_populates="sales_by_product", lazy="joined")

@@ -12,4 +12,4 @@ class SalesByTag(Base):
     tag_id = Column(Integer, ForeignKey('tags.id'), index=True)
     amount = Column(Integer, nullable=False)
 
-    tag = relationship("Tag", back_populates="sales_by_tag")
+    tag = relationship("Tag", back_populates="sales_by_tag", lazy="joined")

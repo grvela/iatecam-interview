@@ -1,13 +1,12 @@
-from abc import ABC
 from sqlalchemy import desc
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from typing import TypeVar, Generic, List
 from sqlalchemy.ext.declarative import DeclarativeMeta
 
 
 ModelType = TypeVar("ModelType")
 
-class AbstractRepository(Generic[ModelType], ABC):    
+class AbstractRepository(Generic[ModelType]):    
     def __init__(self, db: Session):
         self.db = db
 
@@ -30,10 +29,10 @@ class AbstractRepository(Generic[ModelType], ABC):
         if entity:
             self.db.delete(entity)
             self.db.commit()
-
+   
     def _get_all(self) -> List[ModelType]:
         return self.db.query(self.model).all()
-    
+
     def _search_all_without(self, field_name: str, value: str) -> List[ModelType]:
         return self.db.query(self.model).filter(getattr(self.model, field_name) != value).all()
 

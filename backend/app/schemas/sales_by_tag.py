@@ -1,7 +1,7 @@
 from pydantic import BaseModel
+from app.schemas.tag import Tag
 
 class SalesByTagBase(BaseModel):
-    tag_id: int
     amount: int
 
 class CreateSalesByTag(SalesByTagBase):
@@ -9,6 +9,7 @@ class CreateSalesByTag(SalesByTagBase):
 
 class SalesByTag(SalesByTagBase):
     id: int 
+    tag: Tag
 
     class Config:
         orm_mode = True

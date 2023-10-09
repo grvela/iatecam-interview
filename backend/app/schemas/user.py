@@ -2,10 +2,10 @@ from pydantic import BaseModel
 
 class UserBase(BaseModel):
     name: str
-    username: str
 
 class CreateUser(UserBase):
     password: str
+    username: str
 
 class UpdateUser(BaseModel):
     name: str = None

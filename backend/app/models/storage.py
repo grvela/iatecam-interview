@@ -15,8 +15,8 @@ class Storage(Base):
     tag_id = Column(Integer, ForeignKey('tags.id'), nullable=False, index=True)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False, index=True)
 
-    product = relationship("Product", back_populates="storages")
-    tag = relationship("Tag", back_populates="storages")
-    user = relationship("User", back_populates="storages")
+    product = relationship("Product", back_populates="storages", lazy="joined")
+    tag = relationship("Tag", back_populates="storages", lazy="joined")
+    user = relationship("User", back_populates="storages", lazy="joined")
     inputs = relationship("Input", back_populates="storage")
     outputs = relationship("Output", back_populates="storage")

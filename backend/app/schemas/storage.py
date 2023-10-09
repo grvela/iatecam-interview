@@ -1,9 +1,9 @@
 from pydantic import BaseModel, conint
 
+from app.schemas.product import Product
+from app.schemas.tag import Tag
+
 class StorageBase(BaseModel):
-    user_id: int
-    product_id: int
-    tag_id: int
     price: float
     description: str
     amount: conint(ge=0)
@@ -21,6 +21,8 @@ class UpdateStorage(BaseModel):
 
 class Storage(StorageBase):
     id: int
+    product: Product
+    tag: Tag
 
     class Config:
         orm_mode = True
