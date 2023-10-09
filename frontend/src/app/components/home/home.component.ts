@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
 import { TagService } from '../../services/tag/tag.service';
 import { StorageService } from '../../services/storage/storage.service';
+import { SaleService } from '../../services/sale/sale.service';
 import { Storage } from '../../interfaces/storage.interface';
 import { Tag } from '../../interfaces/tag.interface';
+import { Sale } from '../../interfaces/sale.interface';
+import { Chart } from '../../interfaces/chart.interface';
+
+import { ChartService } from '../../services/chart/chart.service';
 
 @Component({
   selector: 'app-home',
@@ -10,11 +15,20 @@ import { Tag } from '../../interfaces/tag.interface';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  user_storages: Storage[] = []
-  to_buy: Storage[] = []
+  user_storages: Storage[] = [];
+  to_buy: Storage[] = [];
   tags: Tag[] = [];
+  last_sales: Sale[] = [];
+  sales_by_tag: Chart[] = [];
 
-  constructor(private tagService: TagService, private storageService: StorageService) { }
+
+  data: any;
+  options: any;
+
+  doughnut_labels: string[] = [];
+  doughnut_amounts: number[] = []
+
+  constructor(private tagService: TagService, private storageService: StorageService, private saleService: SaleService, private chartService: ChartService) { }
 
   ngOnInit() {
     this.tagService.get_tags().subscribe({
@@ -31,9 +45,34 @@ export class HomeComponent {
 
     this.storageService.get_products_to_buy().subscribe({
       next: (response: Storage[]) => {
-        this.to_buy = response
+        this.to_buy = response;
       }
-    })
+    });
+
+    this.saleService.get_last_sales().subscribe({
+      next: (response: Sale[]) => {
+        this.last_sales = response;
+      }
+    });
+
+    this.chartService.get_sales_by_tag().subscribe({
+      next: (response: Chart[]) => {
+        const data = response;
+
+        const sortedData = data.sort((a, b) => b.amount - a.amount);
+
+        const pairs = sortedData.map(item => [item.tag!.name, item.amount]);
+
+        if (pairs.length > 3) {
+          const extraElements = pairs.splice(3);
+          const totalAmount = extraElements.reduce((total, item) => total + Number(item[1]), 0);
+          pairs.push(["Outros", totalAmount]);
+        }
+
+        this.doughnut_labels = pairs.map(pair => String(pair[0]));
+        this.doughnut_amounts = pairs.map(pair => Number(pair[1]));
+      }
+    });
   }
 
 } 

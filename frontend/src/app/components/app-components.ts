@@ -9,6 +9,7 @@ import { ProductComponent } from './product/product.component';
 import { CardProductComponent } from './card-product/card-product.component';
 import { CardProductBuyComponent } from './card-product-buy/card-product-buy.component';
 import { SalesHistoryComponent } from './sales-history/sales-history.component';
+import { SalesByTagComponent } from './chart/sales-by-tag/sales-by-tag.component';
 
 import { AppRoutingModule } from '../app-routing.module';
 
@@ -20,7 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
 import { ChipModule } from 'primeng/chip';
-
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { ChipModule } from 'primeng/chip';
         ProductComponent,
         CardProductComponent,
         CardProductBuyComponent,
-        SalesHistoryComponent
+        SalesHistoryComponent,
+        SalesByTagComponent
     ],
     imports: [
         CommonModule,
@@ -43,7 +45,8 @@ import { ChipModule } from 'primeng/chip';
         FormsModule,
         DropdownModule,
         CardModule,
-        ChipModule
+        ChipModule,
+        ChartModule
     ],
     exports: [
         LoginComponent,

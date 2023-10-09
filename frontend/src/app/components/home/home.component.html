@@ -38,4 +38,18 @@
             <app-card-product-buy [product]="storage"></app-card-product-buy>
         </ng-container>
     </div>
+
+    <h2>Dashboard</h2>
+
+    <h3>Last four sales</h3>
+    <div class="sales-history">
+        <ng-container *ngFor="let sale of last_sales">
+            <app-sales-history [sale]="sale"></app-sales-history>
+        </ng-container>
+    </div>
+
+    <h3>Sales by Tag</h3>
+    <div class="card flex justify-content-center">
+        <app-sales-by-tag [labels]="doughnut_labels" [values]="doughnut_amounts"></app-sales-by-tag>
+    </div>
 </div>

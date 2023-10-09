@@ -1,21 +1,19 @@
 <div class="sales-container">
     <div class="p-grid">
-        <div class="p-col-12 p-md-6 p-lg-3" *ngFor="let sale of sales">
-            <p-card>
-                <ng-template pTemplate="title">
-                    Sale Details
-                </ng-template>
-                <ng-template pTemplate="content">
-                    <div class="sales-info">
-                        <p>Date: {{ sale.date }}</p>
-                        <p>Hour: {{ sale.hour }}</p>
-                        <p>Description: {{ sale.description }}</p>
-                        <p>Client: {{ sale.client }}</p>
-                        <p>Seller: {{ sale.seller }}</p>
-                        <p>Notes: {{ sale.notes }}</p>
-                    </div>
-                </ng-template>
-            </p-card>
-        </div>
+        <p-card>
+            <ng-template pTemplate="title">
+                Sale Details
+            </ng-template>
+            <ng-template pTemplate="content">
+                <div class="sales-info">
+                    <p>Product: {{sale.storage.product.name }}</p>
+                    <p>Description: {{ sale.storage.description }}</p>
+                    <p>Client: {{sale.user.name}}</p>
+                    <p>Seller: {{sale.storage.user.name}}</p>
+                    <p>Date: {{ sale.created_at | date: 'MM/dd/yyyy' }}</p>
+                    <p>Hour: {{sale.created_at | date: 'HH:mm'}}</p>
+                </div>
+            </ng-template>
+        </p-card>
     </div>
 </div>
