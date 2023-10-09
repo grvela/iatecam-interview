@@ -28,6 +28,9 @@ export class HomeComponent {
   doughnut_labels: string[] = [];
   doughnut_amounts: number[] = []
 
+  chart_labels: string[] = [];
+  chart_amounts: number[] = []
+
   constructor(private tagService: TagService, private storageService: StorageService, private saleService: SaleService, private chartService: ChartService) { }
 
   ngOnInit() {
@@ -73,6 +76,25 @@ export class HomeComponent {
         this.doughnut_amounts = pairs.map(pair => Number(pair[1]));
       }
     });
+
+    this.chartService.get_sales_by_product().subscribe({
+      next: (response: Chart[]) => {
+        const array = response;
+
+        const nomesProdutos = [];
+        const quantidades = [];
+
+        for (const item of array) {
+          nomesProdutos.push(item.product!.name);
+          quantidades.push(item.amount);
+        }
+
+        this.chart_labels = nomesProdutos;
+        this.chart_amounts = quantidades;
+      }
+    });
+
+
   }
 
 } 

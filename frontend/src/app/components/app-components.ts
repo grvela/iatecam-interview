@@ -10,6 +10,7 @@ import { CardProductComponent } from './card-product/card-product.component';
 import { CardProductBuyComponent } from './card-product-buy/card-product-buy.component';
 import { SalesHistoryComponent } from './sales-history/sales-history.component';
 import { SalesByTagComponent } from './chart/sales-by-tag/sales-by-tag.component';
+import { SalesByProductComponent } from './chart/sales-by-product/sales-by-product.component';
 
 import { AppRoutingModule } from '../app-routing.module';
 
@@ -33,7 +34,8 @@ import { ChartModule } from 'primeng/chart';
         CardProductComponent,
         CardProductBuyComponent,
         SalesHistoryComponent,
-        SalesByTagComponent
+        SalesByTagComponent,
+        SalesByProductComponent
     ],
     imports: [
         CommonModule,

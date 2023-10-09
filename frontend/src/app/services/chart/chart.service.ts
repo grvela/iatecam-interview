@@ -15,4 +15,8 @@ export class ChartService {
   get_sales_by_tag(): Observable<Chart[]> {
     return this.http.get<Chart[]>(`${this.apiUrl}/sales_by_tag`);
   }
+
+  get_sales_by_product(): Observable<Chart[]> {
+    return this.http.get<Chart[]>(`${this.apiUrl}/sales_by_product`);
+  }
 }
