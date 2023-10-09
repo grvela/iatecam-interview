@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Path
 from sqlalchemy.orm import Session
 from app.config.database import get_db
 from app.services.storage import StorageService
-from app.schemas.storage import Storage, CreateStorage, UpdateStorage
+from app.schemas.storage import Storage, CreateStorage, UpdateStorage, RequestStorage
 from typing import List
 
 from app.middlewares.auth import get_current_user
@@ -13,7 +13,7 @@ router = APIRouter(
 )
 
 @router.post("/", response_model=Storage)
-def create_storage(storage_data: CreateStorage, db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
+def create_storage(storage_data: RequestStorage, db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
     return StorageService(db).create_storage(storage_data, current_user["user_id"])
 
 @router.get("/by/me", response_model=List[Storage])

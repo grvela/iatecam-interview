@@ -10,7 +10,7 @@ class StorageRepository(AbstractRepository[StorageModel]):
         super().__init__(db)
         self.model = StorageModel
 
-    def create_storage(self, storage: StorageBase) -> Storage:
+    def create_storage(self, storage: CreateStorage) -> Storage:
         entity = StorageModel(
             user_id=storage.user_id,
             product_id=storage.product_id,

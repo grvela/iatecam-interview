@@ -1,6 +1,6 @@
 from fastapi import HTTPException, Response
 
-from app.schemas.storage import Storage, CreateStorage, UpdateStorage, StorageBase
+from app.schemas.storage import Storage, CreateStorage, UpdateStorage, StorageBase, RequestStorage
 from app.schemas.product import CreateProduct
 from app.schemas.tag import CreateTag
 
@@ -14,14 +14,14 @@ from app.services.tag import TagService
 from app.config.session import AppService
 
 class StorageService(AppService):
-    def create_storage(self, storage: CreateStorage, user_id: int) -> Storage:
+    def create_storage(self, storage: RequestStorage, user_id: int) -> Storage:
         product = CreateProduct(name=storage.product_name)
         tag = CreateTag(name=storage.tag_name)
 
         product_data = ProductService(self.db).create_product(product)
         tag_data = TagService(self.db).create_tag(tag)
-        print(user_id)
-        storage_data = StorageBase(
+
+        storage_data = CreateStorage(
             user_id=user_id,
             product_id=product_data.id,
             tag_id=tag_data.id,
@@ -63,5 +63,9 @@ class StorageService(AppService):
     def get_all_storages_by_user_id(self, user_id: int):
         return StorageRepository(self.db).get_all_storages_by_user_id(user_id)
     
-    def get_all_storages_to_buy(self, user_id: int) -> List[Storage]:
-        return StorageRepository(self.db).get_all_storages_to_buy(user_id)
+    def get_all_storages_to_buy(self, user_id: int) -> List[Storage]:        
+        products = StorageRepository(self.db).get_all_storages_to_buy(user_id)
+        filtered_products = [product for product in products if product.amount > 0]
+        print("+++++++++++++++++++++++++++++++++++++++++++++++++++")
+        print(filtered_products)
+        return filtered_products

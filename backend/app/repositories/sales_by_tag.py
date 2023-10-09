@@ -5,6 +5,7 @@ from app.schemas.sales_by_tag import SalesByTag, CreateSalesByTag
 from app.repositories.main import AbstractRepository
 from sqlalchemy.orm import Session
 
+from typing import List
 
 class SalesByTagRepository(AbstractRepository[SalesByTagModel]):
     def __init__(self, db: Session):
@@ -20,3 +21,6 @@ class SalesByTagRepository(AbstractRepository[SalesByTagModel]):
     
     def get_sale_by_tag_id(self, tag_id: int) -> SalesByTag:
         return self._search_one_with("tag_id", tag_id)
+    
+    def get_sales_by_tag(self) -> List[SalesByTag]:
+        return self._get_all()
