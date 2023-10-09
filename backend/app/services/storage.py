@@ -66,6 +66,4 @@ class StorageService(AppService):
     def get_all_storages_to_buy(self, user_id: int) -> List[Storage]:        
         products = StorageRepository(self.db).get_all_storages_to_buy(user_id)
         filtered_products = [product for product in products if product.amount > 0]
-        print("+++++++++++++++++++++++++++++++++++++++++++++++++++")
-        print(filtered_products)
         return filtered_products

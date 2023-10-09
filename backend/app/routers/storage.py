@@ -23,19 +23,3 @@ def get_all_user_storages(db: Session = Depends(get_db), current_user: dict = De
 @router.get("/to/me", response_model=List[Storage])
 def get_all_storages_to_buy(db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
     return StorageService(db).get_all_storages_to_buy(current_user["user_id"])
-
-@router.get("/{storage_id}", response_model=Storage)
-def get_storage(storage_id: int, db: Session = Depends(get_db)):
-    return StorageService(db).get_storage_by_id(storage_id)
-
-@router.put("/{storage_id}", response_model=Storage)
-def update_storage(storage_id: int, storage_data: UpdateStorage, db: Session = Depends(get_db)):
-    return StorageService(db).update_storage_by_id(storage_id, storage_data)
-
-@router.delete("/{storage_id}")
-def delete_storage(storage_id: int, db: Session = Depends(get_db)):
-    return StorageService(db).delete_storage_by_id(storage_id)
-
-@router.get("/", response_model=List[Storage])
-def get_all_storages(db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
-    return StorageService(db).get_all_storages()

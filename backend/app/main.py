@@ -1,7 +1,7 @@
 from typing import Union
 
 from fastapi import FastAPI
-from app.routers import tag, user, auth, output, product, storage, sales_by_tag, sales_by_product
+from app.routers import tag, auth, output, storage, analytics
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -16,9 +16,7 @@ app.add_middleware(
 )
 
 app.include_router(auth.router)
-app.include_router(user.router)
-app.include_router(sales_by_tag.router)
-app.include_router(sales_by_product.router)
+app.include_router(analytics.router)
 app.include_router(tag.router)
 app.include_router(output.router)
 app.include_router(storage.router)
