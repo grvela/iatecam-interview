@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-
+import { Storage } from '../../interfaces/storage.interface';
 
 @Component({
   selector: 'app-card-product',

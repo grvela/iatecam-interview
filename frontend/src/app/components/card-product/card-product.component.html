@@ -1,14 +1,14 @@
 <div class="product-card">
     <p-card>
         <ng-template pTemplate="title">
-            Product Details
+            {{product.product.name}}
         </ng-template>
         <ng-template pTemplate="content">
             <div class="product-info">
-                <p>Product Name: {{ product.name }}</p>
-                <p>Price: ${{ product.price }}</p>
-                <p>Category: {{ product.category }}</p>
-                <p>Amount in Stock: {{ product.amount }}</p>
+                <p><b>Price</b>: ${{ product.price }}</p>
+                <p><b>Category</b>: {{ product.tag.name }}</p>
+                <p><b>Available</b>: {{ product.amount }}</p>
+                <p><b>Posted by</b>: {{product.user.name}}</p>
             </div>
         </ng-template>
     </p-card>

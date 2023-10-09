@@ -1,22 +1,32 @@
 <div class="product-container">
     <form (ngSubmit)="createProduct()">
-        <div class="p-field">
-            <label for="name">Name</label>
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+                <i class="pi pi-tag"></i>
+            </span>
             <input type="text" id="name" name="name" [(ngModel)]="product.name" required pInputText
                 placeholder="Product Name" />
         </div>
-        <div class="p-field">
-            <label for="price">Price</label>
-            <input type="number" id="price" name="price" [(ngModel)]="product.price" required pInputNumber
-                placeholder="Product Price" mode="currency" currency="USD" />
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+                <i class="pi pi-dollar"></i>
+            </span>
+            <input type="text" id="price" name="price" [(ngModel)]="product.price" required pInputText
+                placeholder="Product Price" />
         </div>
-        <div class="p-field">
-            <label for="amount">Amount</label>
-            <input type="number" id="amount" name="amount" [(ngModel)]="product.amount" required pInputNumber
+
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+                <i class="pi pi-shopping-cart"></i>
+            </span>
+            <input type="number" id="amount" name="amount" [(ngModel)]="product.amount" required pInputText
                 placeholder="Product Amount" />
         </div>
-        <div class="p-field">
-            <label for="description">Description</label>
+
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+                <i class="pi pi-comment"></i>
+            </span>
             <textarea id="description" name="description" [(ngModel)]="product.description" pInputTextarea
                 placeholder="Product Description"></textarea>
         </div>

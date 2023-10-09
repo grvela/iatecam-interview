@@ -1,0 +1,14 @@
+.product-container>form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.p-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.p-field>label {
+    margin-bottom: 0.5em;
+}

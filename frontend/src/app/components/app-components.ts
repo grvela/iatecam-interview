@@ -19,6 +19,7 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
+import { ChipModule } from 'primeng/chip';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { CardModule } from 'primeng/card';
         ButtonModule,
         FormsModule,
         DropdownModule,
-        CardModule
+        CardModule,
+        ChipModule
     ],
     exports: [
         LoginComponent,

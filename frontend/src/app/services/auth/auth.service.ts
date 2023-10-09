@@ -7,9 +7,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:80/auth';
-  private isLoggedIn = false;
 
   constructor(private http: HttpClient) { }
+
+  getAuthToken() {
+    return sessionStorage.getItem("access_token");
+  }
 
   register(name: string, username: string, password: string) {
     const data = {
@@ -30,14 +33,14 @@ export class AuthService {
   }
 
   logout(): void {
-    this.isLoggedIn = false;
+    sessionStorage.removeItem('access_token');
   }
 
-  isLoggedInUser(): boolean {
-    return this.isLoggedIn;
+  isAuthenticated(): boolean {
+    return !!sessionStorage.getItem('access_token');
   }
 
-  setLoginUser(): void {
-    this.isLoggedIn = true;
+  getAccessToken(): string | null {
+    return sessionStorage.getItem('access_token');
   }
 }

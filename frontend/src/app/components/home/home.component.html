@@ -4,37 +4,38 @@
         Welcome to the best e-commerce
     </p>
 
-    <h2>Sell Area</h2>
+    <h2>For you</h2>
 
+    <div>
+        <h3>Categories in e-commerce</h3>
+        <div class="tag-list">
+            <ng-container *ngFor="let tag of tags">
+                <p-chip>{{tag.name}}</p-chip>
+            </ng-container>
+        </div>
+    </div>
+
+    <h3>Create a new tag</h3>
     <div class="create-tag">
-        <h3>Create a new tag</h3>
         <app-tag></app-tag>
     </div>
 
+    <h3>Create a new Product</h3>
     <div class="create-product">
-        <h3>Create a new Product</h3>
         <app-product></app-product>
     </div>
 
     <h2>Created by me</h2>
     <div class="product-list">
-        <div class="p-grid">
-            <ng-container *ngFor="let product of products">
-                <div class="p-col-12 p-md-4">
-                    <app-card-product [product]="product"></app-card-product>
-                </div>
-            </ng-container>
-        </div>
+        <ng-container *ngFor="let storage of user_storages">
+            <app-card-product [product]="storage"></app-card-product>
+        </ng-container>
     </div>
 
     <h2>To buy</h2>
     <div class="product-list">
-        <div class="p-grid">
-            <div class="p-col-12 p-md-4" *ngFor="let product of products">
-                <app-card-product-buy [product]="product"></app-card-product-buy>
-            </div>
-        </div>
+        <ng-container *ngFor="let storage of to_buy">
+            <app-card-product-buy [product]="storage"></app-card-product-buy>
+        </ng-container>
     </div>
-    <h2>Sales history</h2>
-    <app-sales-history></app-sales-history>
 </div>
