@@ -14,3 +14,11 @@ export interface Storage {
     tag: Tag;
     user: User
 }
+
+export interface CreateStorage {
+    price: number;
+    description: string;
+    amount: number;
+    product_name: string;
+    tag_name: string;
+}

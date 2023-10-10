@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Storage } from '../../interfaces/storage.interface';
+import { CreateStorage, Storage } from '../../interfaces/storage.interface';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,5 +18,9 @@ export class StorageService {
 
   get_products_to_buy(): Observable<Storage[]> {
     return this.http.get<Storage[]>(`${this.apiUrl}/to/me`);
+  }
+
+  create_storage(storage: CreateStorage): Observable<Storage> {
+    return this.http.post<Storage>(this.apiUrl, storage);
   }
 }

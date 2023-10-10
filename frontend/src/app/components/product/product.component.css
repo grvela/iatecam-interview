@@ -4,11 +4,16 @@
     gap: 1em;
 }
 
-.p-field {
+.dropdown {
     display: flex;
-    flex-direction: column;
+    width: 100%;
 }
 
-.p-field>label {
-    margin-bottom: 0.5em;
+.input-dropdown {
+    display: flex;
+    width: 100%;
+}
+
+p-dropdown {
+    width: 100%;
 }

@@ -14,7 +14,7 @@ export class SaleService {
   constructor(private http: HttpClient) { }
 
   get_last_sales(): Observable<Sale[]> {
-    return this.http.get<Sale[]>(`${this.apiUrl}/last-sells`);
+    return this.http.get<Sale[]>(`${this.apiUrl}/latest-sales`);
   }
 
 }

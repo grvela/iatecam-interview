@@ -11,6 +11,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponentsModule } from './components/app-components';
 import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
 
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,14 +23,16 @@ import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
     BrowserAnimationsModule,
     AppRoutingModule,
     AppComponentsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

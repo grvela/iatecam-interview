@@ -1,5 +1,5 @@
 <div class="login-container">
-    <form (ngSubmit)="login()" #loginForm="ngForm">
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
         <div class="p-field">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" pInputText [(ngModel)]="username" required />

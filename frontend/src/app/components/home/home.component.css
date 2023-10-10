@@ -10,6 +10,10 @@
     gap: 0.5em;
 }
 
+.item-forms {
+    max-width: 400px;
+}
+
 .product-list {
     display: flex;
     flex-direction: column;
@@ -20,4 +24,60 @@
     display: flex;
     flex-direction: column;
     gap: 1em;
+}
+
+@media screen and (min-width: 768px) {
+    .product-list {
+        display: table;
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 10px;
+    }
+
+    .product-list ng-container {
+        display: table-row;
+    }
+
+    app-card-product {
+        display: table-cell;
+    }
+
+    app-card-product-buy {
+        display: table-cell;
+    }
+}
+
+
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dashboard-row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.dashboard-column {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.doughnut {
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .dashboard-column {
+        flex: 0 0 100%;
+        margin-right: 0;
+    }
+
+    app-sales-by-tag>.sales-container>.sales-info {
+        flex-direction: column;
+
+    }
 }

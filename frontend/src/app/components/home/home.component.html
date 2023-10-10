@@ -16,13 +16,13 @@
     </div>
 
     <h3>Create a new tag</h3>
-    <div class="create-tag">
+    <div class="item-forms">
         <app-tag></app-tag>
     </div>
 
     <h3>Create a new Product</h3>
-    <div class="create-product">
-        <app-product></app-product>
+    <div class="item-forms">
+        <app-product [tags]="tags"></app-product>
     </div>
 
     <h2>Created by me</h2>
@@ -40,23 +40,39 @@
     </div>
 
     <h2>Dashboard</h2>
+    <div class="dashboard">
+        <div class="dashboard-row">
 
-    <h3>Last four sales</h3>
-    <div class="sales-history">
-        <ng-container *ngFor="let sale of last_sales">
-            <app-sales-history [sale]="sale"></app-sales-history>
-        </ng-container>
+            <div class="dashboard-column">
+                <h3>Last four sales</h3>
+                <div class="sales-history">
+                    <ng-container *ngFor="let sale of last_sales">
+                        <app-sales-history [sale]="sale"></app-sales-history>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="dashboard-column doughnut">
+                <h3>Sales by Tag</h3>
+                <div class="card flex justify-content-center">
+                    <app-sales-by-tag [labels]="doughnut_labels" [values]="doughnut_amounts"></app-sales-by-tag>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="dashboard-row">
+            <div class="dashboard-column">
+                <h3>Sales by Product</h3>
+                <div class="card">
+                    <app-sales-by-product [labels]="chart_labels" [values]="chart_amounts"></app-sales-by-product>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <h3>Sales by Tag</h3>
-    <div class="card flex justify-content-center">
-        <app-sales-by-tag [labels]="doughnut_labels" [values]="doughnut_amounts"></app-sales-by-tag>
-    </div>
 
-    <h3>Sales by Product</h3>
-    <div class="card">
-        <app-sales-by-product [labels]="chart_labels" [values]="chart_amounts"></app-sales-by-product>
-    </div>
+
 
 
 </div>

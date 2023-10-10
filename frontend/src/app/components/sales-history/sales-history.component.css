@@ -1,0 +1,15 @@
+.sales-container {
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.sales-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.item {
+    flex: 1;
+    text-align: center;
+}

@@ -8,15 +8,15 @@ import { Chart } from '../../interfaces/chart.interface';
   providedIn: 'root'
 })
 export class ChartService {
-  private apiUrl = "http://localhost:80"
+  private apiUrl = "http://localhost:80/analytics"
 
   constructor(private http: HttpClient) { }
 
   get_sales_by_tag(): Observable<Chart[]> {
-    return this.http.get<Chart[]>(`${this.apiUrl}/sales_by_tag`);
+    return this.http.get<Chart[]>(`${this.apiUrl}/sales/by/tag`);
   }
 
   get_sales_by_product(): Observable<Chart[]> {
-    return this.http.get<Chart[]>(`${this.apiUrl}/sales_by_product`);
+    return this.http.get<Chart[]>(`${this.apiUrl}/sales/by/product`);
   }
 }

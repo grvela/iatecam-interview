@@ -7,6 +7,7 @@
             <p><b>Price</b>: ${{ product.price }}</p>
             <p><b>Category</b>: {{ product.tag.name }}</p>
             <p><b>Available</b>: {{ product.amount }}</p>
+            <p><b>Posted by</b>: {{ product.user.name }}</p>
 
             <div class="p-inputgroup">
                 <p-inputNumber [(ngModel)]="quantity" inputId="integeronly" [showButtons]="true"
