@@ -13,7 +13,7 @@ router = APIRouter(
 
 @router.post("/", response_model=Output)
 def create_output(output_data: CreateOutput, db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
-    return OutputService(db).create_output(output_data)
+    return OutputService(db).create_output(current_user["user_id"], output_data)
 
 @router.get("/latest-sales", response_model=List[Output])
 def get_last_sells(db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):

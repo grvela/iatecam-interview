@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 4700360eef45
+Revision ID: 8808b402a248
 Revises: 
-Create Date: 2023-10-07 21:44:13.368944
+Create Date: 2023-10-09 22:59:09.371886
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '4700360eef45'
+revision: str = '8808b402a248'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -43,6 +43,24 @@ def upgrade() -> None:
     sa.UniqueConstraint('username')
     )
     op.create_index(op.f('ix_users_id'), 'users', ['id'], unique=False)
+    op.create_table('sales_by_product',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('product_id', sa.Integer(), nullable=True),
+    sa.Column('amount', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['product_id'], ['products.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_index(op.f('ix_sales_by_product_id'), 'sales_by_product', ['id'], unique=False)
+    op.create_index(op.f('ix_sales_by_product_product_id'), 'sales_by_product', ['product_id'], unique=False)
+    op.create_table('sales_by_tag',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('tag_id', sa.Integer(), nullable=True),
+    sa.Column('amount', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['tag_id'], ['tags.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_index(op.f('ix_sales_by_tag_id'), 'sales_by_tag', ['id'], unique=False)
+    op.create_index(op.f('ix_sales_by_tag_tag_id'), 'sales_by_tag', ['tag_id'], unique=False)
     op.create_table('storages',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('price', sa.Float(), nullable=False),
@@ -60,19 +78,6 @@ def upgrade() -> None:
     op.create_index(op.f('ix_storages_product_id'), 'storages', ['product_id'], unique=False)
     op.create_index(op.f('ix_storages_tag_id'), 'storages', ['tag_id'], unique=False)
     op.create_index(op.f('ix_storages_user_id'), 'storages', ['user_id'], unique=False)
-    op.create_table('inputs',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('amount', sa.Integer(), nullable=False),
-    sa.Column('created_at', sa.DateTime(), nullable=True),
-    sa.Column('storage_id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['storage_id'], ['storages.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_index(op.f('ix_inputs_id'), 'inputs', ['id'], unique=False)
-    op.create_index(op.f('ix_inputs_storage_id'), 'inputs', ['storage_id'], unique=False)
-    op.create_index(op.f('ix_inputs_user_id'), 'inputs', ['user_id'], unique=False)
     op.create_table('outputs',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('amount', sa.Integer(), nullable=False),
@@ -95,15 +100,17 @@ def downgrade() -> None:
     op.drop_index(op.f('ix_outputs_storage_id'), table_name='outputs')
     op.drop_index(op.f('ix_outputs_id'), table_name='outputs')
     op.drop_table('outputs')
-    op.drop_index(op.f('ix_inputs_user_id'), table_name='inputs')
-    op.drop_index(op.f('ix_inputs_storage_id'), table_name='inputs')
-    op.drop_index(op.f('ix_inputs_id'), table_name='inputs')
-    op.drop_table('inputs')
     op.drop_index(op.f('ix_storages_user_id'), table_name='storages')
     op.drop_index(op.f('ix_storages_tag_id'), table_name='storages')
     op.drop_index(op.f('ix_storages_product_id'), table_name='storages')
     op.drop_index(op.f('ix_storages_id'), table_name='storages')
     op.drop_table('storages')
+    op.drop_index(op.f('ix_sales_by_tag_tag_id'), table_name='sales_by_tag')
+    op.drop_index(op.f('ix_sales_by_tag_id'), table_name='sales_by_tag')
+    op.drop_table('sales_by_tag')
+    op.drop_index(op.f('ix_sales_by_product_product_id'), table_name='sales_by_product')
+    op.drop_index(op.f('ix_sales_by_product_id'), table_name='sales_by_product')
+    op.drop_table('sales_by_product')
     op.drop_index(op.f('ix_users_id'), table_name='users')
     op.drop_table('users')
     op.drop_index(op.f('ix_tags_name'), table_name='tags')

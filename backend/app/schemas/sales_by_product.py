@@ -5,7 +5,7 @@ class SalesByProductBase(BaseModel):
     amount: int
 
 class CreateSalesByProduct(SalesByProductBase):
-    pass
+    product_id: int
 
 class SalesByProduct(SalesByProductBase):
     id: int 

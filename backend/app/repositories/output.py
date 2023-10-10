@@ -10,12 +10,11 @@ class OutputRepository(AbstractRepository[OutputModel]):
         super().__init__(db)
         self.model = OutputModel
 
-    def create_output(self, output: CreateOutput) -> Output:
+    def create_output(self, user_id: int, output: CreateOutput) -> Output:
         entity = OutputModel(
-            user_id=output.user_id,
+            user_id=user_id,
             storage_id=output.storage_id,
             amount=output.amount,
-            created_at=output.created_at
         )
         return self._create(entity)
 

@@ -10,7 +10,7 @@ from app.services.sales_by_product import SalesByProductService
 from app.config.session import AppService
 
 class OutputService(AppService):
-    def create_output(self, output: CreateOutput) -> Output:
+    def create_output(self, user_id: int, output: CreateOutput) -> Output:
         storage_data = StorageService(self.db).get_storage_by_id(output.storage_id)
 
         if storage_data.amount < output.amount:
@@ -18,10 +18,10 @@ class OutputService(AppService):
         
         storage_data.amount = storage_data.amount - output.amount
 
-        SalesByTagService(self.db).add_to_analytics(storage_data.tag_id, output.amount)
-        SalesByProductService(self.db).add_to_analytics(storage_data.product_id, output.amount)
+        SalesByTagService(self.db).add_to_analytics(storage_data.tag.id, output.amount)
+        SalesByProductService(self.db).add_to_analytics(storage_data.product.id, output.amount)
         
-        return OutputRepository(self.db).create_output(output)
+        return OutputRepository(self.db).create_output(user_id, output)
 
     def get_output_by_id(self, output_id: int) -> Output:
         output_data = OutputRepository(self.db).get_output_by_id(output_id)

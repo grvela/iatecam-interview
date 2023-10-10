@@ -5,7 +5,7 @@ class SalesByTagBase(BaseModel):
     amount: int
 
 class CreateSalesByTag(SalesByTagBase):
-    pass
+    tag_id: int
 
 class SalesByTag(SalesByTagBase):
     id: int 
