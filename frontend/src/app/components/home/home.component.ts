@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { TagService } from '../../services/tag/tag.service';
 import { StorageService } from '../../services/storage/storage.service';
 import { SaleService } from '../../services/sale/sale.service';
+import { SseService } from '../../services/sse/sse.service';
+
 import { Storage } from '../../interfaces/storage.interface';
 import { Tag } from '../../interfaces/tag.interface';
 import { Sale } from '../../interfaces/sale.interface';
@@ -31,9 +33,21 @@ export class HomeComponent {
   chart_labels: string[] = [];
   chart_amounts: number[] = []
 
-  constructor(private tagService: TagService, private storageService: StorageService, private saleService: SaleService, private chartService: ChartService) { }
+  constructor(private tagService: TagService,
+    private storageService: StorageService,
+    private saleService: SaleService,
+    private chartService: ChartService,
+    private sseService: SseService
+  ) { }
 
   ngOnInit() {
+
+    this.sseService.getEvents('tag_created').subscribe((eventData) => {
+      // Lide com os eventos SSE recebidos aqui
+      console.log('Novo evento SSE recebido:', eventData);
+      // Execute ação correspondente com os dados do evento
+    });
+
     this.tagService.get_tags().subscribe({
       next: (response: Tag[]) => {
         this.tags = response;

@@ -8,3 +8,4 @@ pytest
 websockets
 python-jose[cryptography]
 passlib[bcrypt]
+sse-starlette
